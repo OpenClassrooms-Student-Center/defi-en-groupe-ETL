@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>Notes</h1>
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th class="text-left"><a href="?sort={{ namesort }}">Nom</a></td>
+            {% for label in "Informatique", "Autres" %}
+            <th>{{ label }}</th>
+            {% endfor %}
+            <th><a href="?sort={{ avgsort }}">Général</a></td>
+
+        </tr>
+    </thead>
+    {% for student in students.values() %}
+    <tr class="text-center">
+        <td class="text-left"><a href="{{ url_for('.student', id_student=student.id) }}">
+            <strong>{{ student.name }}</strong>
+        </a></td>
+        {% for value in [student.sections.computing.average, student.sections.other.average, student.average] %}
+        {% if value < 50 %}
+            {% set klass = "table-danger" %}
+        {% elif value >= 50 %}
+            {% set klass = "table-success" %}
+        {% endif %}
+        <td class="{{ klass }}">
+            {% if loop.last %}<strong>{% endif %}
+            {{ value }}
+            {% if loop.last %}</strong>{% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
