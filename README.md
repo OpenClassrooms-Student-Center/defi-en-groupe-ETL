@@ -128,6 +128,8 @@ L'environnement virtuel s'active:
 
 Lorsque l'environnement virtuel est activé, l'installation des dépendances se fait via `pip install -r requirements.txt`.
 
+### Lancement du programme
+
 Le processus ETL complet se lance via la commande `python run.py` (ou `python -m etl`).
 
 L'interface de visualisation est disponible par défaut en local sur l'ordinateur: [http://localhost:5000/](http://localhost:5000/).
