@@ -112,10 +112,22 @@ Cette interface est construite avec Flask. L'objectif de cette interface est sim
 > Pas de panique, il n'est pas nécessaire de connaître Flask pour faire fonctionner l'interface web!
 
 * Pour charger les données, il faut appeler la fonction `load` du module `load`. Cette fonction reçoit une liste de dictionnaires (voir étape précédente).
-* Pour lancer le service, il suffit d'appeler la fonction `run_web_service` du module `load`.
+* Pour lancer le service, il suffit d'appeler la fonction `run_web_service` du module `load`. Cette fonction démarre le serveur Web automatiquement.
+
+### Installation des dépendances
+
+Le programme se lance après installation des dépendances (idéalement dans un environnement virtuel).
+En utilisant le module `venv` de Python:
+* `py -m venv venv` sous Windows
+* `python3 -m venv venv` sous macOS / Linux
+
+L'environnement virtuel s'active:
+* `.\venv\Scripts\activate.bat` sous Windows (ligne de commande)
+* `.\venv\Scripts\activate.ps1` sous Windows (PowerShell)
+* `./venv/bin/activate` (macOS / Linux)
+
+Lorsque l'environnement virtuel est activé, l'installation des dépendances se fait via `pip install -r requirements.txt`.
+
+Le processus ETL complet se lance via la commande `python run.py` (ou `python -m etl`).
 
 L'interface de visualisation est disponible par défaut en local sur l'ordinateur: [http://localhost:5000/](http://localhost:5000/).
-
-### Lancement de l'application
-
-Il est possible de lancer le processus ETL complet via la commande `python run.py` (ou `python -m etl`).
