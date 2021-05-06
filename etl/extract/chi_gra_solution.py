@@ -46,7 +46,7 @@ def grapencourt():
     """ Extract data from Grapencourt files """
 
     # Base folder for grade files
-    folder = Path("data") / "grapencourt"
+    folder = Path("data")
 
     # Default student dict
     student_dict_factory = lambda: {
@@ -55,22 +55,18 @@ def grapencourt():
     }
     students = defaultdict(student_dict_factory)
 
-    # Let's look at all the grade files
-    for filename in folder.glob("*.txt"):
-        # And build a nice looking label based on the filename
-        nice_name = " ".join(filename.stem.title().split("_"))
+    # Read the data
+    with open(folder / "grapencourt.txt", "r", encoding="utf-8") as fp:
+        first_line, *lines = [line.strip() for line in fp.read().split("\n") if line.strip()]
+    
+    # Process the data
+    labels = first_line.split(" ")[1:]
 
-        # Read the data
-        with open(filename, "r", encoding="utf-8") as fp:
-            lines = [line.strip() for line in fp.read().split("\n") if line.strip()]
-        
-        # Process the data
-        for line in lines:
-            student_id, *grades = line.split(" ")
-            grades = _convert_grades(grades)
-            new_labels = [f"{nice_name} {idx+1}" for idx in range(len(grades))]
-            students[student_id]["labels"].extend(new_labels)
-            students[student_id]["grades"].extend(grades)
+    for line in lines:
+        student_id, *grades = line.split(" ")
+        grades = _convert_grades(grades)
+        students[student_id]["labels"] = labels
+        students[student_id]["grades"].extend(grades)
 
     return students
 
